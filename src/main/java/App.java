@@ -16,7 +16,7 @@ public class App {
 
         int option = Integer.parseInt(scanner.nextLine());
 
-            switch (option) {//oihuoighuig
+            switch (option) {
 
                 case 1:
                     System.out.println("Podaj szukany tytuł");
