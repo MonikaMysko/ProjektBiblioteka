@@ -8,8 +8,6 @@ public class Book {
     private String url;
 
 
-
-
     public String getTitle() {
         return title;
     }
