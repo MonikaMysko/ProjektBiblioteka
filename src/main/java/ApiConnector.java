@@ -55,11 +55,13 @@ public class ApiConnector {
     }
 
 
-    public String getURL(String title) {
+    public String getTitle(String searchingTitle) {
 
-        Map<String, String> bookMap = new HashMap<>();
+        Map<String, Book> bookMap = new HashMap<>();
 
         String searchingURL = null;
+        String result= null;
+
 
         try {
             HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -78,19 +80,24 @@ public class ApiConnector {
                 Book book = new Book();
                 book.setTitle(jsonObject.getString("title").toLowerCase());
                 book.setUrl(jsonObject.getString("url"));
+                book.setAuthor(jsonObject.getString("author"));
+                book.setGenre(jsonObject.getString("genre"));
+                book.setEpoch(jsonObject.getString("epoch"));
 
-                bookMap.put(book.getTitle(), book.getUrl());
+                bookMap.put(book.getTitle(),(book));
 
             });
 
-            searchingURL = String.valueOf(bookMap.get(title));
+            searchingURL = String.valueOf(bookMap.get(searchingTitle));
+
+             result="Książka o wskazanym tytule to "+bookMap.get(searchingTitle).getGenre()+ " jej autorem jest "+bookMap.get(searchingTitle).getAuthor() + " została napisana w epoce "+bookMap.get(searchingTitle).getEpoch()+ " możesz przeczytać ją pod adresem: "+bookMap.get(searchingTitle).getUrl();  ;
 
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
         }
 
-        return searchingURL;
+        return result;
     }
 
 

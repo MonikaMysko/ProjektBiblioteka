@@ -21,7 +21,7 @@ public class App {
                 case 1:
                     System.out.println("Podaj szukany tytuł");
                     String searchingTitle = scanner.nextLine().toLowerCase();
-                    System.out.println(apiConnector.getURL(searchingTitle));
+                    System.out.println(apiConnector.getTitle(searchingTitle));
                     break;
 
                 case 2:
