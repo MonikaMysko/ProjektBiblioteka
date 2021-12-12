@@ -1,3 +1,8 @@
+package connector;
+
+import model.Author;
+import model.Book;
+import model.Epoch;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -7,60 +12,19 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ApiConnector {
+public class ApiConnectorImpl implements ApiConnector {
 
     private static final String URL = "https://wolnelektury.pl";
 
-    public List<Book> getAll() {
 
-        List<Book> result = new ArrayList<>();
-
-        try {
-            HttpRequest httpRequest = HttpRequest.newBuilder()
-                    .uri(new URI(URL + "/api/books/"))
-                    .GET()
-                    .build();
-
-
-            HttpResponse<String> httpResponse = HttpClient.newHttpClient()
-                    .send(httpRequest, HttpResponse.BodyHandlers.ofString());
-
-            JSONArray jsonArray = new JSONArray(httpResponse.body());
-            jsonArray.iterator().forEachRemaining(s -> {
-
-                JSONObject jsonObject = (JSONObject) s;
-
-                Book book = new Book();
-                book.setAuthor(jsonObject.getString("author"));
-                book.setTitle(jsonObject.getString("title"));
-                book.setKind(jsonObject.getString("kind"));
-                book.setEpoch(jsonObject.getString("epoch"));
-                book.setGenre(jsonObject.getString("genre"));
-                book.setUrl(jsonObject.getString("url"));
-
-                result.add(book);
-
-            });
-
-
-//            System.out.println(result);
-
-        } catch (URISyntaxException | InterruptedException | IOException e) {
-            e.printStackTrace();
-        }
-
-        return result;
-    }
-
-
-    public String getTitle(String searchingTitle) {
-
+    @Override
+    public Book getTitle(String searchingTitle) {
         Map<String, Book> bookMap = new HashMap<>();
 
-        String searchingURL = null;
-        String result= null;
+       Book result=new Book();
 
 
         try {
@@ -84,13 +48,12 @@ public class ApiConnector {
                 book.setGenre(jsonObject.getString("genre"));
                 book.setEpoch(jsonObject.getString("epoch"));
 
-                bookMap.put(book.getTitle(),(book));
+                bookMap.put(book.getTitle(), (book));
 
             });
 
-            searchingURL = String.valueOf(bookMap.get(searchingTitle));
+        result= new Book(bookMap.get(searchingTitle).getTitle(),bookMap.get(searchingTitle).getAuthor(),bookMap.get(searchingTitle).getEpoch(),bookMap.get(searchingTitle).getGenre(),bookMap.get(searchingTitle).getUrl());
 
-             result="Książka o wskazanym tytule to "+bookMap.get(searchingTitle).getGenre()+ " jej autorem jest "+bookMap.get(searchingTitle).getAuthor() + " została napisana w epoce "+bookMap.get(searchingTitle).getEpoch()+ " możesz przeczytać ją pod adresem: "+bookMap.get(searchingTitle).getUrl();  ;
 
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
@@ -100,9 +63,8 @@ public class ApiConnector {
         return result;
     }
 
-
+    @Override
     public String getAuthor(String searchingAuthor) {
-
         Map<String, String> authorMap = new HashMap<>();
 
         String searchingURL = null;
@@ -137,9 +99,13 @@ public class ApiConnector {
         }
 
         return searchingURL;
+
+
+
+
     }
 
-
+    @Override
     public String getEpoch(String searchingEpoch) {
 
         Map<String, String> epochMap = new HashMap<>();
@@ -178,5 +144,5 @@ public class ApiConnector {
         return searchingURL;
     }
 
-
 }
+

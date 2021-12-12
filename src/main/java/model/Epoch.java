@@ -1,3 +1,5 @@
+package model;
+
 public class Epoch {
 
     private String EpochName;

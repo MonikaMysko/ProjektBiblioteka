@@ -1,12 +1,40 @@
-public class Book {
+package entity;
 
+import javax.persistence.*;
+
+@Entity
+public class BookEntity {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int idBook;
     private String title;
-    private String author;
+
+    @ManyToOne
+    @JoinColumn(name = "idAuthor")
+    private AuthorEntity author;
     private String kind;
-    private String epoch;
+
+
+   @ManyToOne
+   @JoinColumn(name = "idEpoch")
+    private EpochEntity epoch;
+
+
     private String genre;
     private String url;
 
+
+    public BookEntity() {
+    }
+
+    public int getIdBook() {
+        return idBook;
+    }
+
+    public void setIdBook(int idBook) {
+        this.idBook = idBook;
+    }
 
     public String getTitle() {
         return title;
@@ -16,11 +44,11 @@ public class Book {
         this.title = title;
     }
 
-    public String getAuthor() {
+    public AuthorEntity getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
+    public void setAuthor(AuthorEntity author) {
         this.author = author;
     }
 
@@ -32,11 +60,11 @@ public class Book {
         this.kind = kind;
     }
 
-    public String getEpoch() {
+    public EpochEntity getEpoch() {
         return epoch;
     }
 
-    public void setEpoch(String epoch) {
+    public void setEpoch(EpochEntity epoch) {
         this.epoch = epoch;
     }
 
@@ -56,14 +84,14 @@ public class Book {
         this.url = url;
     }
 
-
     @Override
     public String toString() {
-        return "Book{" +
-                "title='" + title + '\'' +
-                ", author='" + author + '\'' +
+        return "BookEntity{" +
+                "idBook=" + idBook +
+                ", title='" + title + '\'' +
+                ", author=" + author +
                 ", kind='" + kind + '\'' +
-                ", epoch='" + epoch + '\'' +
+                ", epoch=" + epoch +
                 ", genre='" + genre + '\'' +
                 ", url='" + url + '\'' +
                 '}';
