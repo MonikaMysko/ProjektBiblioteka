@@ -1,6 +1,7 @@
 package entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -24,6 +25,7 @@ public class EpochEntity {
     private List<BookEntity> bookEntityList;
 
     public EpochEntity() {
+        bookEntityList=new ArrayList<>();
     }
 
     public int getIdEpoch() {
@@ -50,15 +52,6 @@ public class EpochEntity {
         this.bookEntityList = bookEntityList;
     }
 
-    @Override
-    public String toString() {
-        return "EpochEntity{" +
-                "idEpoch=" + idEpoch +
-                ", epoch='" + epoch + '\'' +
-                ", urlEpoch='" + urlEpoch + '\'' +
-                ", bookEntityList=" + bookEntityList +
-                '}';
-    }
 
     public void addBookEntityList(BookEntity bookEntity){
         bookEntityList.add(bookEntity);

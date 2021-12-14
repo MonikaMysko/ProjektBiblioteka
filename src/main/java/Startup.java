@@ -30,14 +30,8 @@ public class Startup {
         AppService appService = new AppServiceImpl(apiConnector, repository);
 
 
-        EpochEntity epochEntity=new EpochEntity();
-        epochEntity=repository.save(epochEntity);
-        AuthorEntity authorEntity=new AuthorEntity();
-        authorEntity=repository.save(authorEntity);
-        BookEntity bookEntity=new BookEntity();
-        bookEntity=repository.save(bookEntity);
-
-
+        //todo 1.uniemożliwić dadanie dwa razy tych samych autorów i epok do bazy
+        //     2.dopracować case 2 i 3
 
 
         new Application(appService).start();

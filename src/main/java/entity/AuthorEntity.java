@@ -1,8 +1,7 @@
 package entity;
 
-
-import javax.annotation.processing.Generated;
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -27,6 +26,7 @@ public class AuthorEntity {
     private List<BookEntity> bookEntityList;
 
     public AuthorEntity() {
+        bookEntityList=new ArrayList<>();
     }
 
     public int getIdAuthor() {
@@ -53,17 +53,10 @@ public class AuthorEntity {
         this.bookEntityList = bookEntityList;
     }
 
-    @Override
-    public String toString() {
-        return "AuthorEntity{" +
-                "idAuthor=" + idAuthor +
-                ", author='" + author + '\'' +
-                ", urlAuthor='" + urlAuthor + '\'' +
-                ", bookEntityList=" + bookEntityList +
-                '}';
-    }
 
     public void addBookEntityList(BookEntity bookEntity){
         bookEntityList.add(bookEntity);
     }
+
+
 }

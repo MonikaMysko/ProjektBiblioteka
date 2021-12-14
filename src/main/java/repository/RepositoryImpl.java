@@ -5,6 +5,8 @@ import entity.BookEntity;
 import entity.EpochEntity;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 public class RepositoryImpl implements Repository {
 
@@ -42,6 +44,21 @@ public class RepositoryImpl implements Repository {
        entityManager.persist(authorEntity);
        entityManager.getTransaction().commit();
        return authorEntity;
+    }
+
+    @Override
+    public BookEntity getTitle(String searchingTitle) {
+        BookEntity result=null;
+
+        try {
+            Query query = entityManager.createQuery("FROM BookEntity where title = " + "'" + searchingTitle + "'");
+            result = (BookEntity) query.getSingleResult();
+
+
+        }catch (NoResultException ignored){
+
+        }
+        return result;
     }
 
 

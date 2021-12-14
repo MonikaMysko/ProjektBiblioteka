@@ -12,4 +12,8 @@ public interface Repository {
     EpochEntity save(EpochEntity epochEntity);
 
     AuthorEntity save(AuthorEntity authorEntity);
+
+    BookEntity getTitle(String name);
+
+
 }

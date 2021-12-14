@@ -13,14 +13,12 @@ public class BookEntity {
     @ManyToOne
     @JoinColumn(name = "idAuthor")
     private AuthorEntity author;
-    private String kind;
-
 
    @ManyToOne
    @JoinColumn(name = "idEpoch")
     private EpochEntity epoch;
 
-
+    private String kind;
     private String genre;
     private String url;
 
@@ -84,16 +82,5 @@ public class BookEntity {
         this.url = url;
     }
 
-    @Override
-    public String toString() {
-        return "BookEntity{" +
-                "idBook=" + idBook +
-                ", title='" + title + '\'' +
-                ", author=" + author +
-                ", kind='" + kind + '\'' +
-                ", epoch=" + epoch +
-                ", genre='" + genre + '\'' +
-                ", url='" + url + '\'' +
-                '}';
-    }
+
 }

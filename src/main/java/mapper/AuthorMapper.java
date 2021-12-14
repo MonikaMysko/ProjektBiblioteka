@@ -1,9 +1,8 @@
 package mapper;
 
 import entity.AuthorEntity;
-import entity.EpochEntity;
 import model.Author;
-import model.Epoch;
+
 
 public class AuthorMapper {
     public static Author mapAuthorEntityToAuthor(AuthorEntity authorEntity) {
