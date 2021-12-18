@@ -1,8 +1,9 @@
 package application;
 
+import model.Author;
 import model.Book;
+import model.Epoch;
 import service.AppService;
-
 import java.util.Scanner;
 
 public class Application {
@@ -43,14 +44,18 @@ public class Application {
 
                 case 2:
                     System.out.println("Podaj szukanego autora");
-                    String searchingAuthor = scanner.nextLine().toLowerCase();
-                    System.out.println(appService.getAuthor(searchingAuthor));
+                    String searchingAuthor = scanner.nextLine();
+                    Author author=new Author();
+                    author=appService.getAuthor(searchingAuthor);
+                    System.out.println("Wszystkie ksiązki autora dostępne pod linkiem "+author.getAuthorUrl());
                     break;
 
                 case 3:
                     System.out.println("Podaj interesującą epokę");
                     String searchingEpoch = scanner.nextLine().toLowerCase();
-                    System.out.println(appService.getEpoch(searchingEpoch));
+                    Epoch epoch=new Epoch();
+                    epoch=appService.getEpoch(searchingEpoch);
+                    System.out.println("Wszyskie ksiązki z podanej epoki znajdują się pod linkiem "+epoch.getEpochUrl());
 
                     break;
 

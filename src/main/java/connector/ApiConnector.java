@@ -8,8 +8,8 @@ public interface ApiConnector {
 
     Book getTitle(String searchingTitle);
 
-   String getAuthor(String searchingAuthor);
+   Author getAuthor(String searchingAuthor);
 
-   String getEpoch(String searchingEpoch);
+   Epoch getEpoch(String searchingEpoch);
 
 }

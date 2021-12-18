@@ -16,6 +16,7 @@ public interface Repository {
     BookEntity getTitle(String name);
 
     AuthorEntity getAuthor(String name);
+    EpochEntity getEpoch(String name);
 
 
 }

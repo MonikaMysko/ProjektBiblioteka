@@ -95,4 +95,19 @@ public class RepositoryImpl implements Repository {
         }
         return result;
     }
+
+    @Override
+    public EpochEntity getEpoch(String searchingEpoch) {
+        EpochEntity result=null;
+
+        try{
+            Query query=entityManager.createQuery(("FROM EpochEntity where epoch= " + "'" + searchingEpoch + "'"));
+            result=(EpochEntity) query.getSingleResult();
+        }catch (NoResultException ignored){
+
+        }
+        return result;
+    }
+
+
 }

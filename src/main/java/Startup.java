@@ -24,11 +24,6 @@ public class Startup {
         Repository repository = new RepositoryImpl(entityManager);
         AppService appService = new AppServiceImpl(apiConnector, repository);
 
-
-        //todo 1.uniemożliwić dadanie dwa razy tych samych autorów i epok do bazy
-        //     2.dopracować case 2 i 3
-
-
         new Application(appService).start();
     }
 }

@@ -4,8 +4,12 @@ import connector.ApiConnector;
 import entity.AuthorEntity;
 import entity.BookEntity;
 import entity.EpochEntity;
+import mapper.AuthorMapper;
 import mapper.BookMapper;
+import mapper.EpochMapper;
+import model.Author;
 import model.Book;
+import model.Epoch;
 import repository.Repository;
 
 public class AppServiceImpl implements AppService {
@@ -39,8 +43,6 @@ public class AppServiceImpl implements AppService {
             bookEntity = BookMapper.mapBookToBookEntity(book);
             bookEntity.setAuthor(authorEntity);
             bookEntity.setEpoch(epochEntity);
-            //authorEntity.addBookEntityList(bookEntity);
-            //epochEntity.addBookEntityList(bookEntity);
             repository.save(bookEntity);
 
 //            System.out.println(" TO KSIĄŻKA Z API: ");
@@ -57,14 +59,54 @@ public class AppServiceImpl implements AppService {
 
 
     @Override
-    public String getAuthor(String searchingAuthor) {
+    public Author getAuthor(String searchingAuthor) {
+        AuthorEntity authorEntity = repository.getAuthor(searchingAuthor);
 
-        return null;
+        if (authorEntity == null) {
+
+            Author author = apiConnector.getAuthor(searchingAuthor);
+
+
+            authorEntity = AuthorMapper.mapAuthorToAuthorEntity(author);
+            repository.save(authorEntity);
+
+//            System.out.println(" TO AUTOR Z API: ");
+
+            return author;
+
+        } else {
+
+            Author author= AuthorMapper.mapAuthorEntityToAuthor(authorEntity);
+//            System.out.println(" TO AUTOR Z BAZY DANYCH: ");
+            return author;
+        }
+
     }
 
     @Override
-    public String getEpoch(String searchingEpoch) {
-        return null;
+    public Epoch getEpoch(String searchingEpoch) {
+
+       EpochEntity epochEntity = repository.getEpoch(searchingEpoch);
+
+        if (epochEntity == null) {
+
+            Epoch epoch = apiConnector.getEpoch(searchingEpoch);
+
+
+            epochEntity = EpochMapper.mapEpochToEpochEntity(epoch);
+            repository.save(epochEntity);
+
+//            System.out.println(" TO AUTOR Z API: ");
+
+            return epoch;
+
+        } else {
+
+            Epoch epoch= EpochMapper.mapEpochEntityToEpoch(epochEntity);
+//            System.out.println(" TO AUTOR Z BAZY DANYCH: ");
+            return epoch;
+        }
+
     }
 
 

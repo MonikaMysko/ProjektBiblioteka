@@ -70,10 +70,10 @@ public class ApiConnectorImpl implements ApiConnector {
     }
 
     @Override
-    public String getAuthor(String searchingAuthor) {
-        Map<String, String> authorMap = new HashMap<>();
+    public Author getAuthor(String searchingAuthor) {
+        Map<String, Author> authorMap = new HashMap<>();
 
-        String searchingURL = null;
+        Author result = new Author();
 
         try {
             HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -90,31 +90,31 @@ public class ApiConnectorImpl implements ApiConnector {
                 JSONObject jsonObject = (JSONObject) s;
 
                 Author author = new Author();
-                author.setName(jsonObject.getString("name").toLowerCase());
+                author.setName(jsonObject.getString("name"));
                 author.setAuthorUrl(jsonObject.getString("url"));
 
-                authorMap.put(author.getName(), author.getAuthorUrl());
+                authorMap.put(author.getName(), author);
 
             });
 
-            searchingURL = authorMap.get(searchingAuthor);
+            result=new Author(authorMap.get(searchingAuthor).getName(),authorMap.get(searchingAuthor).getAuthorUrl());
 
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
         }
 
-        return searchingURL;
+        return result;
 
 
     }
 
     @Override
-    public String getEpoch(String searchingEpoch) {
+    public Epoch getEpoch(String searchingEpoch) {
 
-        Map<String, String> epochMap = new HashMap<>();
+        Map<String, Epoch> epochMap = new HashMap<>();
 
-        String searchingURL = null;
+        Epoch result = new Epoch();
 
         try {
             HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -134,18 +134,18 @@ public class ApiConnectorImpl implements ApiConnector {
                 epoch.setEpochName(jsonObject.getString("name").toLowerCase());
                 epoch.setEpochUrl(jsonObject.getString("url"));
 
-                epochMap.put(epoch.getEpochName(), epoch.getEpochUrl());
+                epochMap.put(epoch.getEpochName(), epoch);
 
             });
 
-            searchingURL = epochMap.get(searchingEpoch);
+            result=new Epoch(epochMap.get(searchingEpoch).getEpochName(),epochMap.get(searchingEpoch).getEpochUrl());
 
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
         }
 
-        return searchingURL;
+        return result;
     }
 
 }
