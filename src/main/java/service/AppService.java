@@ -1,7 +1,6 @@
 package service;
 
 import entity.AuthorEntity;
-import entity.BookEntity;
 import entity.EpochEntity;
 import model.Book;
 

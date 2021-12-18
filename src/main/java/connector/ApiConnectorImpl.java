@@ -24,8 +24,7 @@ public class ApiConnectorImpl implements ApiConnector {
     public Book getTitle(String searchingTitle) {
         Map<String, Book> bookMap = new HashMap<>();
 
-       Book result=new Book();
-
+        Book result = new Book();
 
         try {
             HttpRequest httpRequest = HttpRequest.newBuilder()
@@ -52,14 +51,19 @@ public class ApiConnectorImpl implements ApiConnector {
 
             });
 
-        result= new Book(bookMap.get(searchingTitle).getTitle(),bookMap.get(searchingTitle).getAuthor(),bookMap.get(searchingTitle).getEpoch(),bookMap.get(searchingTitle).getGenre(),bookMap.get(searchingTitle).getUrl());
+            result= new Book(bookMap.get(searchingTitle).getTitle(),bookMap.get(searchingTitle).getAuthor(),bookMap.get(searchingTitle).getEpoch(),bookMap.get(searchingTitle).getGenre(),bookMap.get(searchingTitle).getUrl());
 
-
+//            result = new Book(
+//                    bookMap.get(searchingTitle).getTitle(),
+//                    bookMap.get(searchingTitle).getAuthor(),
+//                    bookMap.get(searchingTitle).getEpoch(),
+//                    bookMap.get(searchingTitle).getGenre(),
+//                    bookMap.get(searchingTitle).getUrl()
+//            );
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();
         }
-
         return result;
     }
 
@@ -99,8 +103,6 @@ public class ApiConnectorImpl implements ApiConnector {
         }
 
         return searchingURL;
-
-
 
 
     }
@@ -145,4 +147,3 @@ public class ApiConnectorImpl implements ApiConnector {
     }
 
 }
-

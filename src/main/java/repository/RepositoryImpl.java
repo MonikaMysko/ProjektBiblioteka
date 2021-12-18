@@ -32,34 +32,54 @@ public class RepositoryImpl implements Repository {
 
     @Override
     public EpochEntity save(EpochEntity epochEntity) {
-       entityManager.getTransaction().begin();
-       entityManager.persist(epochEntity);
-       entityManager.getTransaction().commit();
-       return epochEntity;
+
+        EpochEntity epochEntityInTable = null;
+        try {
+            epochEntityInTable = (EpochEntity) entityManager
+                    .createQuery("from EpochEntity  where epoch = " + "'" + epochEntity.getEpoch() + "'")
+                    .getSingleResult();
+        } catch (NoResultException ignored) {
+        }
+
+        if (epochEntityInTable == null) {
+            entityManager.getTransaction().begin();
+            entityManager.persist(epochEntity);
+            entityManager.getTransaction().commit();
+        } else {
+            epochEntity.setIdEpoch(epochEntityInTable.getIdEpoch());
+        }
+
+        return epochEntity;
     }
 
     @Override
     public AuthorEntity save(AuthorEntity authorEntity) {
-       entityManager.getTransaction().begin();
-       entityManager.persist(authorEntity);
-       entityManager.getTransaction().commit();
-       return authorEntity;
+        AuthorEntity authorInTable = null;
+        try {
+            authorInTable = (AuthorEntity) entityManager
+                    .createQuery("from AuthorEntity  where author = " + "'" + authorEntity.getAuthor() + "'")
+                    .getSingleResult();
+        } catch (NoResultException ignored) {
+        }
+
+        if (authorInTable == null) {
+            entityManager.getTransaction().begin();
+            entityManager.persist(authorEntity);
+            entityManager.getTransaction().commit();
+        } else{
+            authorEntity.setIdAuthor(authorInTable.getIdAuthor());
+        }
+        return authorEntity;
     }
 
     @Override
     public BookEntity getTitle(String searchingTitle) {
-        BookEntity result=null;
-
+        BookEntity result = null;
         try {
             Query query = entityManager.createQuery("FROM BookEntity where title = " + "'" + searchingTitle + "'");
             result = (BookEntity) query.getSingleResult();
-
-
-        }catch (NoResultException ignored){
-
+        } catch (NoResultException ignored) {
         }
         return result;
     }
-
-
 }

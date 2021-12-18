@@ -1,11 +1,6 @@
 package application;
 
-import connector.ApiConnector;
-import connector.ApiConnectorImpl;
-import repository.Repository;
-import repository.RepositoryImpl;
 import service.AppService;
-import service.AppServiceImpl;
 
 import java.util.Scanner;
 

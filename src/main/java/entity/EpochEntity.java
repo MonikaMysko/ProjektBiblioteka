@@ -1,9 +1,12 @@
 package entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Data
 @Entity
 public class EpochEntity {
 
@@ -13,47 +16,15 @@ public class EpochEntity {
     private String epoch;
     private String urlEpoch;
 
-    public String getUrlEpoch() {
-        return urlEpoch;
-    }
-
-    public void setUrlEpoch(String urlEpoch) {
-        this.urlEpoch = urlEpoch;
-    }
 
     @OneToMany(mappedBy = "epoch", cascade = CascadeType.ALL)
     private List<BookEntity> bookEntityList;
 
     public EpochEntity() {
-        bookEntityList=new ArrayList<>();
+        bookEntityList = new ArrayList<>();
     }
 
-    public int getIdEpoch() {
-        return idEpoch;
-    }
-
-    public void setIdEpoch(int idEpoch) {
-        this.idEpoch = idEpoch;
-    }
-
-    public String getEpoch() {
-        return epoch;
-    }
-
-    public void setEpoch(String epoch) {
-        this.epoch = epoch;
-    }
-
-    public List<BookEntity> getBookEntityList() {
-        return bookEntityList;
-    }
-
-    public void setBookEntityList(List<BookEntity> bookEntityList) {
-        this.bookEntityList = bookEntityList;
-    }
-
-
-    public void addBookEntityList(BookEntity bookEntity){
+    public void addBookEntityList(BookEntity bookEntity) {
         bookEntityList.add(bookEntity);
     }
 }

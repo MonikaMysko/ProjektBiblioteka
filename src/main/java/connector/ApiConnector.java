@@ -10,7 +10,4 @@ public interface ApiConnector {
 
     String getEpoch(String searchingEpoch);
 
-
-
-
 }
