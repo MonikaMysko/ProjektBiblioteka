@@ -1,5 +1,6 @@
 package application;
 
+import model.Book;
 import service.AppService;
 
 import java.util.Scanner;
@@ -33,7 +34,11 @@ public class Application {
                 case 1:
                     System.out.println("Podaj szukany tytuł");
                     String searchingTitle = scanner.nextLine().toLowerCase();
-                    System.out.println(appService.getTitle(searchingTitle));
+                    System.out.println();
+                    Book searchingBook= new Book();
+                    searchingBook=appService.getTitle(searchingTitle);
+                    System.out.println("Szukana przez Ciebie książka zostałą napisana przez "+searchingBook.getAuthor()+ ". Jej gatunek to "+searchingBook.getGenre()+
+                            ". Epoka, w której powstała to "+searchingBook.getEpoch() + ". Możesz ją przeczytać pod linkiem "+searchingBook.getUrl());
                     break;
 
                 case 2:

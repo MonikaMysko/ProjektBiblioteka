@@ -43,6 +43,7 @@ public class ApiConnectorImpl implements ApiConnector {
                 Book book = new Book();
                 book.setTitle(jsonObject.getString("title").toLowerCase());
                 book.setUrl(jsonObject.getString("url"));
+                book.setKind(jsonObject.getString("kind"));
                 book.setAuthor(jsonObject.getString("author"));
                 book.setGenre(jsonObject.getString("genre"));
                 book.setEpoch(jsonObject.getString("epoch"));
@@ -51,15 +52,16 @@ public class ApiConnectorImpl implements ApiConnector {
 
             });
 
-            result= new Book(bookMap.get(searchingTitle).getTitle(),bookMap.get(searchingTitle).getAuthor(),bookMap.get(searchingTitle).getEpoch(),bookMap.get(searchingTitle).getGenre(),bookMap.get(searchingTitle).getUrl());
+            result= new Book(bookMap.get(searchingTitle).getTitle(),
+                    bookMap.get(searchingTitle).getAuthor(),
+                    bookMap.get(searchingTitle).getEpoch(),
+                    bookMap.get(searchingTitle).getKind(),
+                    bookMap.get(searchingTitle).getGenre(),
+                    bookMap.get(searchingTitle).getUrl()
+            );
 
-//            result = new Book(
-//                    bookMap.get(searchingTitle).getTitle(),
-//                    bookMap.get(searchingTitle).getAuthor(),
-//                    bookMap.get(searchingTitle).getEpoch(),
-//                    bookMap.get(searchingTitle).getGenre(),
-//                    bookMap.get(searchingTitle).getUrl()
-//            );
+
+
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
             e.printStackTrace();

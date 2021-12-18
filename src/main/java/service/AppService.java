@@ -2,6 +2,7 @@ package service;
 
 import entity.AuthorEntity;
 import entity.EpochEntity;
+import model.Author;
 import model.Book;
 
 public interface AppService {

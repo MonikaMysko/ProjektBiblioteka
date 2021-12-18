@@ -6,4 +6,5 @@ import lombok.Data;
 public class Author {
     private String name;
     private String AuthorUrl;
+
 }

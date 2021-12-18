@@ -82,4 +82,17 @@ public class RepositoryImpl implements Repository {
         }
         return result;
     }
+
+    @Override
+    public AuthorEntity getAuthor(String searchingAuthor) {
+        AuthorEntity result=null;
+
+        try {
+            Query query = entityManager.createQuery(("FROM AuthorEntity  where author = " + "'" + searchingAuthor + "'"));
+            result = (AuthorEntity) query.getSingleResult();
+        }catch (NoResultException ignored){
+
+        }
+        return result;
+    }
 }

@@ -43,14 +43,14 @@ public class AppServiceImpl implements AppService {
             //epochEntity.addBookEntityList(bookEntity);
             repository.save(bookEntity);
 
-            System.out.println(" TO KSIĄŻKA Z API: ");
+//            System.out.println(" TO KSIĄŻKA Z API: ");
 
             return book;
 
         } else {
 
             Book book = BookMapper.mapBookEntityToBook(bookEntity);
-            System.out.println(" TO KSIĄŻKA Z BAZY DANYCH: ");
+//            System.out.println(" TO KSIĄŻKA Z BAZY DANYCH: ");
             return book;
         }
     }
@@ -58,6 +58,7 @@ public class AppServiceImpl implements AppService {
 
     @Override
     public String getAuthor(String searchingAuthor) {
+
         return null;
     }
 
