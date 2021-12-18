@@ -37,8 +37,16 @@ public class AppServiceImpl implements AppService {
 
             Book book = apiConnector.getTitle(name);
 
-            AuthorEntity authorEntity = getAuthorEntity(book);
-            EpochEntity epochEntity = getEpochEntity(book);
+
+           // AuthorEntity authorEntity = getAuthorEntity(book);
+            Author author = apiConnector.getAuthor(book.getAuthor());
+            AuthorEntity authorEntity = AuthorMapper.mapAuthorToAuthorEntity(author);
+            Epoch epoch = apiConnector.getEpoch(book.getEpoch());
+            EpochEntity epochEntity = EpochMapper.mapEpochToEpochEntity(epoch);
+            repository.save(epochEntity);
+            repository.save(authorEntity);
+
+            //EpochEntity epochEntity = getEpochEntity(book);
 
             bookEntity = BookMapper.mapBookToBookEntity(book);
             bookEntity.setAuthor(authorEntity);
@@ -91,19 +99,19 @@ public class AppServiceImpl implements AppService {
         if (epochEntity == null) {
 
             Epoch epoch = apiConnector.getEpoch(searchingEpoch);
-
-
             epochEntity = EpochMapper.mapEpochToEpochEntity(epoch);
             repository.save(epochEntity);
 
-//            System.out.println(" TO AUTOR Z API: ");
+//            System.out.println(" TO EPOKA Z API: ");
 
             return epoch;
 
         } else {
 
             Epoch epoch= EpochMapper.mapEpochEntityToEpoch(epochEntity);
-//            System.out.println(" TO AUTOR Z BAZY DANYCH: ");
+
+            epoch= EpochMapper.mapEpochEntityToEpoch(epochEntity);
+//            System.out.println(" TO EPOKA Z BAZY DANYCH: ");
             return epoch;
         }
 
@@ -124,6 +132,16 @@ public class AppServiceImpl implements AppService {
         epochEntity.setEpoch(book.getEpoch());
         repository.save(epochEntity);
         return epochEntity;
+    }
+
+
+
+
+    @Override
+    public AuthorEntity getAuthorEntity(Author author) {
+        apiConnector.getAuthor(author.getName());
+        AuthorEntity authorEntity=AuthorMapper.mapAuthorToAuthorEntity(author);
+        return authorEntity;
     }
 
 

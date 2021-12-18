@@ -13,6 +13,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class ApiConnectorImpl implements ApiConnector {
@@ -41,26 +42,24 @@ public class ApiConnectorImpl implements ApiConnector {
                 JSONObject jsonObject = (JSONObject) s;
 
                 Book book = new Book();
-                book.setTitle(jsonObject.getString("title").toLowerCase());
+                book.setTitle(jsonObject.getString("title").toUpperCase());
                 book.setUrl(jsonObject.getString("url"));
-                book.setKind(jsonObject.getString("kind"));
-                book.setAuthor(jsonObject.getString("author"));
-                book.setGenre(jsonObject.getString("genre"));
-                book.setEpoch(jsonObject.getString("epoch"));
+                book.setKind(jsonObject.getString("kind").toUpperCase());
+                book.setAuthor(jsonObject.getString("author").toUpperCase());
+                book.setGenre(jsonObject.getString("genre").toUpperCase());
+                book.setEpoch(jsonObject.getString("epoch").toUpperCase());
 
                 bookMap.put(book.getTitle(), (book));
 
             });
 
-            result= new Book(bookMap.get(searchingTitle).getTitle(),
+            result = new Book(bookMap.get(searchingTitle).getTitle(),
                     bookMap.get(searchingTitle).getAuthor(),
-                    bookMap.get(searchingTitle).getEpoch(),
                     bookMap.get(searchingTitle).getKind(),
+                    bookMap.get(searchingTitle).getEpoch(),
                     bookMap.get(searchingTitle).getGenre(),
                     bookMap.get(searchingTitle).getUrl()
             );
-
-
 
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
@@ -90,14 +89,14 @@ public class ApiConnectorImpl implements ApiConnector {
                 JSONObject jsonObject = (JSONObject) s;
 
                 Author author = new Author();
-                author.setName(jsonObject.getString("name"));
+                author.setName(jsonObject.getString("name").toUpperCase());
                 author.setAuthorUrl(jsonObject.getString("url"));
 
                 authorMap.put(author.getName(), author);
 
             });
 
-            result=new Author(authorMap.get(searchingAuthor).getName(),authorMap.get(searchingAuthor).getAuthorUrl());
+            result = new Author(authorMap.get(searchingAuthor).getName(), authorMap.get(searchingAuthor).getAuthorUrl());
 
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
@@ -131,14 +130,14 @@ public class ApiConnectorImpl implements ApiConnector {
                 JSONObject jsonObject = (JSONObject) s;
 
                 Epoch epoch = new Epoch();
-                epoch.setEpochName(jsonObject.getString("name").toLowerCase());
+                epoch.setEpochName(jsonObject.getString("name").toUpperCase());
                 epoch.setEpochUrl(jsonObject.getString("url"));
 
                 epochMap.put(epoch.getEpochName(), epoch);
 
             });
 
-            result=new Epoch(epochMap.get(searchingEpoch).getEpochName(),epochMap.get(searchingEpoch).getEpochUrl());
+            result = new Epoch(epochMap.get(searchingEpoch).getEpochName(), epochMap.get(searchingEpoch).getEpochUrl());
 
 
         } catch (URISyntaxException | InterruptedException | IOException e) {
@@ -148,4 +147,37 @@ public class ApiConnectorImpl implements ApiConnector {
         return result;
     }
 
+    @Override
+    public String getEpochUrl(String searchingEpoch, Epoch epoch) {
+
+        String result = null;
+
+        try {
+            HttpRequest httpRequest = HttpRequest.newBuilder()
+                    .uri(new URI(URL + "/api/epochs/"))
+                    .GET()
+                    .build();
+
+            HttpResponse<String> httpResponse = HttpClient.newHttpClient()
+                    .send(httpRequest, HttpResponse.BodyHandlers.ofString());
+
+            JSONArray jsonArray = new JSONArray(httpResponse.body());
+            jsonArray.iterator().forEachRemaining(s -> {
+
+                JSONObject jsonObject = (JSONObject) s;
+
+                epoch.setEpochUrl(jsonObject.getString("url"));
+
+
+            });
+
+            result = epoch.getEpochUrl();
+
+
+        } catch (URISyntaxException | InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
 }

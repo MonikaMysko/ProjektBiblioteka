@@ -17,5 +17,8 @@ public interface AppService {
     public AuthorEntity getAuthorEntity(Book book);
     public EpochEntity getEpochEntity(Book book);
 
+    public AuthorEntity getAuthorEntity(Author author);
+
+
 
 }
